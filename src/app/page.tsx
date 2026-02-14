@@ -6,6 +6,7 @@ import HeroOrb from "../components/HeroOrb";
 import AboutSection from "../components/AboutSection";
 import Image from "next/image";
 import FeaturedProjects from "../components/FeaturedProjects";
+import Testimonials from "../components/Testimonials";
 
 const industries = ["D2C", "SaaS", "AI-focused", "Technology"];
 const heroLines = [
@@ -14,28 +15,7 @@ const heroLines = [
   "that shine.",
 ];
 
-const testimonials = [
-  {
-    quote:
-      "SetZet brought clarity to our product story and translated it into a design system that felt premium from day one.",
-    name: "Aastha Sharma",
-    role: "Head of Marketing, Yastudy",
-  },
-  {
-    quote:
-      "The team thinks in systems, not screens. Every interaction felt intentional and directly improved how users navigate.",
-    name: "Rajdeep Singh",
-    role: "Founder, Zenfora Pvt Ltd.",
-  },
-  {
-    quote:
-      "Fast, sharp, and deeply collaborative. The new site finally matches the quality of our product and sales narrative.",
-    name: "Mikael Ross",
-    role: "VP Growth, Atlas",
-  },
-];
-const testimonialVideoSrc = "/testimonial-video.mp4";
-const testimonialVideoPoster = "/testimonial-video-photo.png";
+
 
 export default function Home() {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -470,94 +450,7 @@ export default function Home() {
         <FeaturedProjects />
 
         {/* TESTIMONIALS SECTION */}
-        <section
-          id="testimonials"
-          className="mx-auto w-full max-w-6xl px-4 pb-20 pt-6 sm:px-8 sm:pb-24 lg:px-10 lg:pb-28"
-        >
-          <div
-            className="mb-10 flex flex-wrap items-end justify-between gap-6"
-            data-animate="testimonials"
-          >
-            <div>
-              <p className="text-xs uppercase tracking-[0.35em] text-black/60">
-                Testimonials
-              </p>
-              <h2 className="mt-4 text-3xl font-semibold leading-tight tracking-tight sm:text-4xl">
-                Partner feedback,
-                <br />
-                framed with clarity.
-              </h2>
-            </div>
-            <p className="max-w-md text-sm leading-7 text-black/65 sm:text-base">
-              A spotlight composition with one flagship quote and supporting
-              voices placed as side notes.
-            </p>
-          </div>
-
-          <div className="grid gap-6 lg:grid-cols-12">
-            <article
-              className="relative overflow-hidden rounded-[30px] border border-black/10 bg-white/85 px-6 py-8 sm:px-8 sm:py-10 lg:col-span-8"
-              data-animate="testimonials"
-            >
-              <span className="pointer-events-none absolute -left-3 -top-6 text-[8rem] leading-none text-black/[0.06] sm:text-[10rem]">
-                &ldquo;
-              </span>
-              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-black/25 to-transparent" />
-
-              <div className="relative mb-6 overflow-hidden rounded-2xl border border-black/10 bg-black">
-                <div className="aspect-video w-full">
-                  <video
-                    className="h-full w-full object-cover"
-                    controls
-                    playsInline
-                    preload="metadata"
-                    poster={testimonialVideoPoster}
-                  >
-                    <source src={testimonialVideoSrc} type="video/mp4" />
-                    Your browser does not support the video tag.
-                  </video>
-                </div>
-              </div>
-
-              <p className="relative max-w-3xl text-lg leading-9 text-black/80 sm:text-[1.45rem] sm:leading-10">
-                {testimonials[0].quote}
-              </p>
-
-              <div className="relative mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-black/10 pt-5">
-                <div>
-                  <p className="text-base font-semibold text-black">
-                    {testimonials[0].name}
-                  </p>
-                  <p className="mt-1 text-xs uppercase tracking-[0.22em] text-black/50">
-                    {testimonials[0].role}
-                  </p>
-                </div>
-                <span className="rounded-full border border-black/15 px-3 py-1 text-[10px] uppercase tracking-[0.24em] text-black/55">
-                  Featured Voice
-                </span>
-              </div>
-            </article>
-
-            <div className="space-y-6 lg:col-span-4">
-              {testimonials.slice(1).map((item) => (
-                <article
-                  key={item.name}
-                  className="relative overflow-hidden rounded-2xl border border-black/10 bg-white/75 p-5"
-                  data-animate="testimonials"
-                >
-                  <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-black/20 to-transparent" />
-                  <p className="text-sm leading-7 text-black/75">{item.quote}</p>
-                  <div className="mt-5 border-t border-black/10 pt-3">
-                    <p className="text-sm font-semibold text-black">{item.name}</p>
-                    <p className="text-[10px] uppercase tracking-[0.2em] text-black/50">
-                      {item.role}
-                    </p>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
+        <Testimonials />
 
         {/* CONTACT SECTION */}
         <section
