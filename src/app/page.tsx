@@ -5,6 +5,7 @@ import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import HeroOrb from "../components/HeroOrb";
 import AboutSection from "../components/AboutSection";
 import Image from "next/image";
+import FeaturedProjects from "../components/FeaturedProjects";
 
 const industries = ["D2C", "SaaS", "AI-focused", "Technology"];
 const heroLines = [
@@ -12,44 +13,7 @@ const heroLines = [
   "build original brands",
   "that shine.",
 ];
-const projects = [
-  {
-    title: "Northline Commerce",
-    category: "E-commerce Rebrand",
-    year: "2025",
-    image: "/web-design.png",
-    href: "#",
-    summary:
-      "Reframed a crowded catalog into a sharp storytelling storefront with a 41% uplift in product discovery.",
-  },
-  {
-    title: "Pulseboard SaaS",
-    category: "Product Experience",
-    year: "2025",
-    image: "/ui-design.png",
-    href: "#",
-    summary:
-      "Designed a dashboard system that reduced onboarding friction and turned complex workflows into clear moments.",
-  },
-  {
-    title: "Atlas Launch Site",
-    category: "Web Development",
-    year: "2024",
-    image: "/web-development.jpg",
-    href: "#",
-    summary:
-      "Built a fast, motion-led marketing site with CMS flexibility and production-grade performance from day one.",
-  },
-  {
-    title: "Orbit Mobile Suite",
-    category: "App Product Design",
-    year: "2024",
-    image: "/mobile-app-development.png",
-    href: "#",
-    summary:
-      "Designed and shipped a modular mobile experience with clearer navigation and significantly faster task completion.",
-  },
-];
+
 const testimonials = [
   {
     quote:
@@ -503,84 +467,7 @@ export default function Home() {
         </section>
 
         {/* PROJECTS SECTION */}
-        <section
-          id="work"
-          className="mx-auto w-full max-w-6xl px-4 pb-12 pt-10 sm:px-8 sm:pb-16 lg:px-10 lg:pb-20"
-        >
-          <div className="mb-8 flex flex-wrap items-end justify-between gap-6" data-animate="work">
-            <div>
-              <p className="text-xs uppercase tracking-[0.35em] text-black/60">
-                Selected Projects
-              </p>
-              <h2 className="mt-4 text-3xl font-semibold leading-tight tracking-tight sm:text-4xl">
-                Experimental builds
-                <br />
-                with editorial rhythm.
-              </h2>
-            </div>
-            <p className="max-w-md text-sm leading-7 text-black/65 sm:text-base">
-              A staggered portfolio layout where each case study has its own
-              composition, pacing, and visual weight.
-            </p>
-          </div>
-
-          <div className="space-y-6">
-            {projects.map((project, index) => (
-              <article
-                key={project.title}
-                className="group relative overflow-hidden rounded-[28px] border border-black/10 bg-white/80 p-4 backdrop-blur-sm sm:p-6"
-                data-animate="work"
-              >
-                <span className="pointer-events-none absolute -right-3 -top-10 text-[6rem] font-semibold leading-none tracking-tight text-black/[0.06] sm:text-[8rem]">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-
-                <div className="grid gap-6 md:grid-cols-12 md:items-center">
-                  <div
-                    className={`relative aspect-[16/10] overflow-hidden rounded-2xl border border-black/10 md:col-span-7 ${index % 2 === 1 ? "md:order-2" : ""
-                      }`}
-                  >
-                    <Image
-                      src={project.image}
-                      alt={project.title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 60vw"
-                      className="object-cover transition duration-700 ease-out group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
-                  </div>
-
-                  <div
-                    className={`relative md:col-span-5 ${index % 2 === 1 ? "md:order-1" : ""
-                      }`}
-                  >
-                    <p className="text-[10px] uppercase tracking-[0.34em] text-black/50">
-                      {project.category} - {project.year}
-                    </p>
-                    <h3 className="mt-3 text-2xl font-semibold leading-tight tracking-tight sm:text-3xl">
-                      {project.title}
-                    </h3>
-                    <p className="mt-4 text-base leading-7 text-black/70">
-                      {project.summary}
-                    </p>
-                    <a
-                      className="mt-6 inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.26em] text-black/60 transition hover:text-black"
-                      href={project.href}
-                    >
-                      View Project
-                      <span className="inline-block h-px w-10 bg-black/30 transition-all duration-300 group-hover:w-14" />
-                    </a>
-                  </div>
-                </div>
-              </article>
-            ))}
-
-            <div className="flex items-center justify-between px-1 pt-2 text-[11px] uppercase tracking-[0.28em] text-black/50">
-              <span>More projects on request</span>
-              <span className="inline-block h-px w-12 bg-black/30" />
-            </div>
-          </div>
-        </section>
+        <FeaturedProjects />
 
         {/* TESTIMONIALS SECTION */}
         <section
