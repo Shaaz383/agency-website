@@ -143,7 +143,7 @@ export default function Home() {
           </nav>
           <div className="flex items-center gap-3">
             <a
-              className="hidden rounded-full border border-black/20 px-4 py-2 text-[11px] font-semibold text-black transition hover:border-black md:inline-flex"
+              className="hidden rounded-full border border-black/20 px-5 py-2.5 text-[11px] font-semibold text-black transition-all duration-300 hover:border-black hover:bg-black hover:text-white md:inline-flex"
               href="#contact"
             >
               Start a Project
@@ -249,9 +249,14 @@ export default function Home() {
                   style={{ opacity: btnOpacity, y: btnY }}
                   className="mt-8 flex flex-wrap items-center justify-center gap-4 text-sm font-medium"
                 >
-                  <button className="rounded-full bg-black px-6 py-3 text-white transition hover:bg-black/85">
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                    className="rounded-full bg-black px-8 py-4 text-white font-medium shadow-lg hover:shadow-xl transition-shadow duration-300"
+                  >
                     Start a Project
-                  </button>
+                  </motion.button>
                 </motion.div>
               </div>
             </div>

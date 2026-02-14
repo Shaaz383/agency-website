@@ -151,10 +151,15 @@ export default function AboutSection() {
                         <p className="mt-4 text-white/60">
                             Let&apos;s build something that matters.
                         </p>
-                        <button className="group mt-10 inline-flex items-center gap-3 rounded-full bg-white px-6 py-3 text-sm font-semibold text-black transition hover:bg-white/90">
+                        <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                            className="group mt-10 inline-flex items-center gap-3 rounded-full bg-white px-8 py-4 text-sm font-semibold text-black shadow-lg transition-shadow hover:shadow-xl"
+                        >
                             Start a Project
-                            <BsArrowRight className="transition-transform group-hover:translate-x-1" />
-                        </button>
+                            <BsArrowRight className="transition-transform duration-300 group-hover:translate-x-1" />
+                        </motion.button>
                     </div>
 
                     {/* Spacer to ensure last card is fully visible */}
