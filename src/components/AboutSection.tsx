@@ -62,7 +62,10 @@ export default function AboutSection() {
                     className="flex gap-10 pl-4 sm:pl-16 lg:pl-24"
                 >
                     {/* INTRO CARD - Fixed width */}
-                    <div className="group relative h-[70vh] w-[85vw] shrink-0 overflow-hidden rounded-[40px] border border-black/5 bg-[#0a0a0a] p-8 sm:w-[600px] sm:p-12 md:w-[700px]">
+                    <div
+                        className="group relative h-[70vh] w-[85vw] shrink-0 overflow-hidden rounded-[40px] border border-black/5 bg-[#0a0a0a] p-8 sm:w-[600px] sm:p-12 md:w-[700px]"
+                        data-animate="about"
+                    >
                         {/* Background Image */}
                         <div className="absolute inset-0 z-0 transition-transform duration-700 group-hover:scale-105">
                             <Image
@@ -107,10 +110,11 @@ export default function AboutSection() {
                     </div>
 
                     {/* CHAPTER CARDS - Loop through data */}
-                    {chapters.map((chapter, index) => (
+                    {chapters.map((chapter) => (
                         <div
                             key={chapter.id}
                             className="relative flex h-[70vh] w-[85vw] shrink-0 flex-col justify-between rounded-[40px] border border-black/5 bg-white p-8 shadow-sm transition-colors duration-500 hover:border-black/20 sm:w-[400px] sm:p-10"
+                            data-animate="about"
                         >
                             {/* Large ID Number */}
                             <span className="absolute -right-4 -top-8 font-heading text-[12rem] font-bold leading-none text-black/[0.03] select-none">
@@ -137,7 +141,10 @@ export default function AboutSection() {
                     ))}
 
                     {/* END CARD / CTA */}
-                    <div className="flex h-[70vh] w-[85vw] shrink-0 flex-col items-start justify-center rounded-[40px] bg-black p-8 text-white sm:w-[400px] sm:p-12">
+                    <div
+                        className="flex h-[70vh] w-[85vw] shrink-0 flex-col items-start justify-center rounded-[40px] bg-black p-8 text-white sm:w-[400px] sm:p-12"
+                        data-animate="about"
+                    >
                         <h3 className="text-3xl font-semibold leading-tight">
                             Ready to write <br /> your chapter?
                         </h3>

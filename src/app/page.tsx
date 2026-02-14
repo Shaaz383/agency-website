@@ -107,6 +107,73 @@ export default function Home() {
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    const animatedElements = Array.from(
+      document.querySelectorAll<HTMLElement>("[data-animate]")
+    );
+    const groupedElements = new Map<string, HTMLElement[]>();
+
+    animatedElements.forEach((element, index) => {
+      const groupKey = element.dataset.animate?.trim() || `group-${index}`;
+      const existing = groupedElements.get(groupKey) ?? [];
+      existing.push(element);
+      groupedElements.set(groupKey, existing);
+    });
+
+    if (prefersReducedMotion) {
+      animatedElements.forEach((element) => element.classList.add("is-visible"));
+      return;
+    }
+
+    const timeoutIds: number[] = [];
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+
+          const element = entry.target as HTMLElement;
+          const groupKey = element.dataset.animate?.trim();
+          if (!groupKey) return;
+
+          const group = groupedElements.get(groupKey);
+          if (!group) return;
+
+          group.forEach((groupElement, itemIndex) => {
+            const delay = groupElement.dataset.animateDelay
+              ? Number(groupElement.dataset.animateDelay)
+              : itemIndex * 130;
+
+            const timeoutId = window.setTimeout(() => {
+              groupElement.classList.add("is-visible");
+            }, delay);
+
+            timeoutIds.push(timeoutId);
+          });
+
+          observer.unobserve(element);
+          groupedElements.delete(groupKey);
+        });
+      },
+      {
+        threshold: 0.24,
+        rootMargin: "0px 0px -12% 0px",
+      }
+    );
+
+    groupedElements.forEach((group) => {
+      if (group[0]) observer.observe(group[0]);
+    });
+
+    return () => {
+      observer.disconnect();
+      timeoutIds.forEach((timeoutId) => window.clearTimeout(timeoutId));
+    };
+  }, []);
+
   return (
     <main id="top" className="noise-bg min-h-screen bg-white text-black">
       {/* NAVIGATION BAR */}
@@ -520,7 +587,10 @@ export default function Home() {
           id="testimonials"
           className="mx-auto w-full max-w-6xl px-4 pb-20 pt-6 sm:px-8 sm:pb-24 lg:px-10 lg:pb-28"
         >
-          <div className="mb-10 flex flex-wrap items-end justify-between gap-6">
+          <div
+            className="mb-10 flex flex-wrap items-end justify-between gap-6"
+            data-animate="testimonials"
+          >
             <div>
               <p className="text-xs uppercase tracking-[0.35em] text-black/60">
                 Testimonials
@@ -538,7 +608,10 @@ export default function Home() {
           </div>
 
           <div className="grid gap-6 lg:grid-cols-12">
-            <article className="relative overflow-hidden rounded-[30px] border border-black/10 bg-white/85 px-6 py-8 sm:px-8 sm:py-10 lg:col-span-8">
+            <article
+              className="relative overflow-hidden rounded-[30px] border border-black/10 bg-white/85 px-6 py-8 sm:px-8 sm:py-10 lg:col-span-8"
+              data-animate="testimonials"
+            >
               <span className="pointer-events-none absolute -left-3 -top-6 text-[8rem] leading-none text-black/[0.06] sm:text-[10rem]">
                 &ldquo;
               </span>
@@ -583,6 +656,7 @@ export default function Home() {
                 <article
                   key={item.name}
                   className="relative overflow-hidden rounded-2xl border border-black/10 bg-white/75 p-5"
+                  data-animate="testimonials"
                 >
                   <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-black/20 to-transparent" />
                   <p className="text-sm leading-7 text-black/75">{item.quote}</p>
@@ -604,7 +678,10 @@ export default function Home() {
           className="mx-auto w-full max-w-6xl px-4 pb-20 pt-6 sm:px-8 sm:pb-24 lg:px-10 lg:pb-28"
         >
           <div className="grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
-            <div className="relative overflow-hidden rounded-[30px] border border-black/10 bg-white/85 p-7 sm:p-9">
+            <div
+              className="relative overflow-hidden rounded-[30px] border border-black/10 bg-white/85 p-7 sm:p-9"
+              data-animate="contact"
+            >
               <div className="pointer-events-none absolute -right-8 -top-10 h-36 w-36 rounded-full border border-black/10" />
               <p className="text-xs uppercase tracking-[0.35em] text-black/60">
                 Contact Us
@@ -634,7 +711,10 @@ export default function Home() {
               </div>
             </div>
 
-            <form className="relative overflow-hidden rounded-[30px] border border-black/10 bg-white/80 p-6 sm:p-8">
+            <form
+              className="relative overflow-hidden rounded-[30px] border border-black/10 bg-white/80 p-6 sm:p-8"
+              data-animate="contact"
+            >
               <div className="grid gap-4 sm:grid-cols-2">
                 <label className="flex flex-col gap-2">
                   <span className="text-[11px] uppercase tracking-[0.25em] text-black/55">
@@ -697,7 +777,10 @@ export default function Home() {
         {/* FOOTER */}
         <footer className="mx-auto w-full max-w-6xl px-4 pb-10 pt-4 sm:px-8 lg:px-10">
           <div className="overflow-hidden rounded-[32px] border border-black/10 bg-white/95">
-            <div className="grid gap-8 border-b border-black/10 px-6 py-8 sm:px-8 sm:py-10 lg:grid-cols-[1.1fr_0.9fr]">
+            <div
+              className="grid gap-8 border-b border-black/10 px-6 py-8 sm:px-8 sm:py-10 lg:grid-cols-[1.1fr_0.9fr]"
+              data-animate="footer"
+            >
               <div>
                 <p className="text-[10px] uppercase tracking-[0.32em] text-black/45">
                   SetZet Studio
@@ -735,7 +818,10 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="grid gap-4 px-6 py-5 sm:px-8 md:grid-cols-[1fr_auto_auto] md:items-center">
+            <div
+              className="grid gap-4 px-6 py-5 sm:px-8 md:grid-cols-[1fr_auto_auto] md:items-center"
+              data-animate="footer"
+            >
               <p className="text-[10px] uppercase tracking-[0.24em] text-black/45">(c) 2026 SetZet Studio</p>
 
               <div className="flex items-center gap-2">
