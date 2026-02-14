@@ -217,7 +217,7 @@ export default function Home() {
               <div className="w-full max-w-4xl text-center">
                 <motion.h1
                   style={{ opacity: headingOpacity, y: headingY }}
-                  className="text-center text-[clamp(2.1rem,9vw,4.5rem)] font-semibold leading-[0.98] tracking-tight"
+                  className="text-center text-5xl font-bold leading-[0.9] tracking-tighter sm:text-7xl lg:text-8xl"
                 >
                   {heroLines.map((line) => (
                     <span key={line} className="block overflow-hidden">
