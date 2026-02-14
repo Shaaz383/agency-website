@@ -113,7 +113,7 @@ export default function AboutSection() {
                             className="relative flex h-[70vh] w-[85vw] shrink-0 flex-col justify-between rounded-[40px] border border-black/5 bg-white p-8 shadow-sm transition-colors duration-500 hover:border-black/20 sm:w-[400px] sm:p-10"
                         >
                             {/* Large ID Number */}
-                            <span className="absolute -right-4 -top-8 font-mono text-[12rem] font-bold leading-none text-black/[0.03] select-none">
+                            <span className="absolute -right-4 -top-8 font-heading text-[12rem] font-bold leading-none text-black/[0.03] select-none">
                                 {chapter.id}
                             </span>
 
