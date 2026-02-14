@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import HeroOrb from "../components/HeroOrb";
 import AboutSection from "../components/AboutSection";
 import Image from "next/image";
@@ -73,6 +74,19 @@ const testimonialVideoSrc = "/testimonial-video.mp4";
 const testimonialVideoPoster = "/testimonial-video-photo.png";
 
 export default function Home() {
+  const heroRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end end"],
+  });
+
+  // Reveal sequence: Heading is visible, Description fades in, Button fades in
+  const descOpacity = useTransform(scrollYProgress, [0.15, 0.3], [0, 1]);
+  const descY = useTransform(scrollYProgress, [0.15, 0.3], [20, 0]);
+
+  const btnOpacity = useTransform(scrollYProgress, [0.35, 0.5], [0, 1]);
+  const btnY = useTransform(scrollYProgress, [0.35, 0.5], [20, 0]);
+
   const [industryIndex, setIndustryIndex] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -168,51 +182,59 @@ export default function Home() {
       <div className="relative z-10 min-h-screen">
         {/* HERO SECTION */}
         <section
-          className="relative mx-auto flex min-h-[calc(100dvh-4.5rem)] w-full max-w-6xl flex-col justify-center overflow-hidden px-4 pb-12 pt-24 sm:min-h-[calc(100dvh-5rem)] sm:px-8 sm:pb-16 lg:px-10 lg:pb-20 lg:pt-28"
+          ref={heroRef}
+          className="relative min-h-[250vh]"
         >
-          <div className="pointer-events-none absolute inset-0 -z-10 flex items-center justify-center overflow-hidden" aria-hidden="true">
-            <div className="aspect-square w-[min(74vw,620px)] opacity-[0.14] sm:w-[min(58vw,620px)]">
-              <HeroOrb />
+          <div className="sticky top-0 h-screen w-full overflow-hidden">
+            <div className="absolute inset-0 -z-10 flex items-center justify-center" aria-hidden="true">
+              <div className="aspect-square w-[min(74vw,620px)] opacity-[0.2] sm:w-[min(58vw,620px)]">
+                <HeroOrb scrollYProgress={scrollYProgress} />
+              </div>
             </div>
-          </div>
 
-          {/* HERO CONTENT */}
-          <div className="mt-8">
-            {/* HERO COPY */}
-            <div>
-              <h1
-                className="text-center text-[clamp(2.1rem,9vw,4.5rem)] font-semibold leading-[0.98] tracking-tight sm:text-left"
-              >
-                {heroLines.map((line) => (
-                  <span key={line} className="block overflow-hidden">
-                    <span className="block">
-                      {line}
-                    </span>
-                  </span>
-                ))}
-              </h1>
-              <p
-                className="mx-auto mt-6 max-w-xl text-center text-base leading-7 text-black/70 sm:mx-0 sm:text-left sm:text-lg"
-                data-animate="hero"
-              >
-                A strategy-led design studio specializing in laying down the
-                awesome sauce for{" "}
-                <span
-                  key={industries[industryIndex]}
-                  className="rotate-word font-semibold text-black"
-                  aria-live="polite"
+            {/* HERO CONTENT */}
+            <div className="mx-auto flex h-full w-full max-w-6xl flex-col justify-center px-4 sm:px-8 lg:px-10">
+              <div>
+                <motion.h1
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, ease: "easeOut" }}
+                  className="text-center text-[clamp(2.1rem,9vw,4.5rem)] font-semibold leading-[0.98] tracking-tight sm:text-left"
                 >
-                  {industries[industryIndex]}
-                </span>{" "}
-                brands.
-              </p>
-              <div
-                className="mt-8 flex flex-wrap items-center justify-center gap-4 text-sm font-medium sm:justify-start"
-                data-animate="hero"
-              >
-                <button className="rounded-full bg-black px-6 py-3 text-white transition hover:bg-black/85">
-                  Start a Project
-                </button>
+                  {heroLines.map((line) => (
+                    <span key={line} className="block overflow-hidden">
+                      <span className="block">
+                        {line}
+                      </span>
+                    </span>
+                  ))}
+                </motion.h1>
+
+                <motion.div
+                  style={{ opacity: descOpacity, y: descY }}
+                  className="mx-auto mt-6 max-w-xl text-center text-base leading-7 text-black/70 sm:mx-0 sm:text-left sm:text-lg"
+                >
+                  <p>
+                    A strategy-led design studio specializing in laying down the
+                    awesome sauce for{" "}
+                    <span
+                      key={industries[industryIndex]}
+                      className="rotate-word font-semibold text-black"
+                    >
+                      {industries[industryIndex]}
+                    </span>{" "}
+                    brands.
+                  </p>
+                </motion.div>
+
+                <motion.div
+                  style={{ opacity: btnOpacity, y: btnY }}
+                  className="mt-8 flex flex-wrap items-center justify-center gap-4 text-sm font-medium sm:justify-start"
+                >
+                  <button className="rounded-full bg-black px-6 py-3 text-white transition hover:bg-black/85">
+                    Start a Project
+                  </button>
+                </motion.div>
               </div>
             </div>
           </div>
